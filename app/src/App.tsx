@@ -1,15 +1,11 @@
-import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTodo } from './util/https';
 import Todo from './Todo';
 
 function App() {
-	const { id } = useParams();
-	const todoId = id;
-
-	const { data } = useQuery({
-		queryKey: ['todos', todoId],
-		queryFn: ({ signal }) => fetchTodo({ signal, id: todoId }),
+	const { data: todos, refetch } = useQuery({
+		queryKey: ['todos'],
+		queryFn: () => fetchTodo(),
 	});
 
 	async function handleAddTodo(newTodo: string) {
@@ -25,13 +21,17 @@ function App() {
 				throw new Error('Failed to add todo');
 			}
 			const addedTodo = await response.json();
+
+			refetch();
 			return addedTodo;
 		} catch (error) {
 			console.error('Error adding todo:', error);
+
+			return null;
 		}
 	}
 
-	return <Todo addTodo={handleAddTodo} todos={data} />;
+	return <Todo addTodo={handleAddTodo} todos={todos} />;
 }
 
 export default App;

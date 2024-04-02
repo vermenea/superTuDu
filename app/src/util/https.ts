@@ -2,20 +2,9 @@ import { QueryClient } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient();
 
-export async function fetchTodo({
-	id,
-	signal,
-}: {
-	id: string | undefined;
-	signal: any;
-}) {
-	if (!id) {
-		throw new Error('Todo ID is undefined');
-	}
+export async function fetchTodo() {
 
-	const response = await fetch(`http://localhost:3000/todos`, {
-		signal,
-	});
+	const response = await fetch(`http://localhost:3000/todos`)
 	if (!response.ok) {
 		const error = new Error('An error occurred while fetching todo');
 		throw error;
