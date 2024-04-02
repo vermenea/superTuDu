@@ -30,8 +30,8 @@ function App() {
 			return null;
 		}
 	}
-
-	return <Todo addTodo={handleAddTodo} todos={todos} />;
+	if (!todos) return <p>Loading...</p>;
+	return <Todo addTodo={handleAddTodo} todos={todos} refetchTodos={refetch} />;
 }
 
 export default App;

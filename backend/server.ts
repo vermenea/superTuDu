@@ -5,6 +5,8 @@ import Fastify, {
 } from 'fastify';
 import fs from 'fs';
 import fastifyCors from '@fastify/cors';
+import { v4 as uuidv4 } from 'uuid';
+import TodoItem from '../app/src/Todo';
 
 const fastify: FastifyInstance = Fastify({ logger: true });
 
@@ -20,23 +22,20 @@ try {
 }
 
 fastify.get('/todos', async (request: FastifyRequest, reply: FastifyReply) => {
-	reply.code(200).send(todos)
+	reply.code(200).send(todos);
 });
 
-fastify.post(
-	'/todos',
-	async (request: FastifyRequest, reply: FastifyReply) => {
-		try {
-			const todoData = request.body as Todo;
-			const newTodo: Todo = { ...todoData, idx: Date.now() };
-			todos.push(newTodo);
-			saveTodosToFile(todos);
-			reply.code(201).send(newTodo);
-		} catch (error) {
-			reply.code(500).send({ error: 'Internal Server Error' });
-		}
+fastify.post('/todos', async (request: FastifyRequest, reply: FastifyReply) => {
+	try {
+		const todoData = request.body as Todo;
+		const newTodo: Todo = { ...todoData, idx: uuidv4() };
+		todos.push(newTodo);
+		saveTodosToFile(todos);
+		reply.code(201).send(newTodo);
+	} catch (error) {
+		reply.code(500).send({ error: 'Internal Server Error' });
 	}
-);
+});
 
 function saveTodosToFile(todos: Todo[]) {
 	fs.writeFile('todos.json', JSON.stringify(todos), 'utf8', (err) => {
@@ -44,12 +43,6 @@ function saveTodosToFile(todos: Todo[]) {
 			console.error('Error saving todos:', err);
 		}
 	});
-}
-
-interface Todo {
-	idx: number;
-	name: string;
-	completed: boolean;
 }
 
 const start = async () => {
