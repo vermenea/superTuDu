@@ -15,36 +15,34 @@ html {
 	justify-content: center;
 	align-items: center;
 	padding: 5em;
-	width: 50%;
 	background-color: rgba(255, 182, 193, 0.377);
 	border-radius: 2em;
-}
-.todo {
-	background-color: plum;
 }
 header {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	color: deeppink;
 	margin: 1em 0em;
 }
-.buttons {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 button {
 	border-radius: 0.5em;
-	padding: 0.5em;
+	padding: 0.2em 0.5em;
 	margin: 0.5em;
 	background-color: deeppink;
 	color: white;
 	border: none;
 }
-.todo-list {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
 .list {
+	display: flex;
+	flex-direction: column;
 	list-style: none;
+	font-size: 1.2rem;
+}
+
+.todo {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.buttons-box {
+	padding-left: 5em;
 }
