@@ -13,7 +13,7 @@ Why super todo ? Because I'm frontend developer and this is a fullstack app 😎
 
   - React
   - TypeScript
-  - CSS
+  - Styled-components 💅
 
 - **Backend**:
   - Fastify
