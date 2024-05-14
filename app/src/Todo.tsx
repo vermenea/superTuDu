@@ -2,6 +2,7 @@ import { useState, ChangeEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTodo } from './util/https';
+import { Container } from './style/Container';
 
 export interface TodoItem {
 	idx: string;
@@ -65,7 +66,7 @@ export default function Todo({ addTodo, deleteTodo, markTodo }: Props) {
 	}
 
 	return (
-		<section className='container'>
+		<Container>
 			<header>
 				<h1>SuperTuDu</h1>
 			</header>
@@ -100,6 +101,6 @@ export default function Todo({ addTodo, deleteTodo, markTodo }: Props) {
 					</div>
 				))}
 			</ul>
-		</section>
+		</Container>
 	);
 }
